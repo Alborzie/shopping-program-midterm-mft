@@ -328,6 +328,9 @@ def add_products_to_db():
     if name == "" or price == "" or qnt == "":
         admin_tplvl_adding_products_state_lbl.configure(text="ERROR ; all fields have to be filled!", fg="red")
         return
+    if int(price) < 0 or int(qnt) < 0:
+        admin_tplvl_adding_products_state_lbl.configure(text="ERROR ; price or quantitty cant be negative number", fg="red")
+        return
     else:
         query_insert_product = '''INSERT INTO products(ProductName, ProductPrice, ProductQuantitty)
                                 VALUES(?,?,?)'''
