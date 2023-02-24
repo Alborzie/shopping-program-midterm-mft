@@ -331,6 +331,13 @@ def add_products_to_db():
     if int(price) < 0 or int(qnt) < 0:
         admin_tplvl_adding_products_state_lbl.configure(text="ERROR ; price or quantitty cant be negative number", fg="red")
         return
+    
+    query = '''SELECT ProductName from Products'''
+    result = dbcnt.execute(query).fetchall()
+    if (name,) in result:
+        admin_tplvl_adding_products_state_lbl.configure(text="ERROR ; product name already exists", fg="red")
+        return
+    
     else:
         query_insert_product = '''INSERT INTO products(ProductName, ProductPrice, ProductQuantitty)
                                 VALUES(?,?,?)'''
